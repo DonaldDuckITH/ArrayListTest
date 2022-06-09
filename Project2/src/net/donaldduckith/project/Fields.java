@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Assert;
 
 public class Fields extends Main {
     private int id;
@@ -21,8 +20,6 @@ public class Fields extends Main {
         Gson gson = new Gson();
         String jsonString = list.toString();
         String expectedString = "[{\"id\":1,\"name\":\"name1\"},{\"id\":2,\"name\":\"name2\"}]";
-
-        Assert.assertEquals(expectedString, jsonString);
 
     }
 }

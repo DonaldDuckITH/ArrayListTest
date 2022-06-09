@@ -1,8 +1,12 @@
 package net.donaldduckith.project;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.net.*;
 import com.google.gson.*;
+import com.google.gson.reflect.*;
+
+import java.time.LocalDate;
 import java.util.*;
 
 public class Main {
@@ -47,7 +51,10 @@ public class Main {
             JsonParser jp2 = new JsonParser();
             @Deprecated
             JsonElement root2 = jp2.parse(new InputStreamReader((InputStream) request2.getContent()));
-            JsonArray rootObj2 = root2.getAsJsonArray();
+
+            Gson gson = new Gson();
+            Type postListType = new TypeToken<ArrayList<Main>>(){}.getType();
+            ArrayList<Main> postArray = gson.fromJson(root2, postListType);
 
             Scanner scanner = new Scanner(System.in);
             System.out.println("Please enter a postId.");
@@ -55,9 +62,6 @@ public class Main {
             int input = scanner.nextInt();
 
 
-            for (String field : rootObj2.getAsJsonObject().keySet()) {
-
-            }
 
 
         } catch (Exception e) {
