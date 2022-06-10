@@ -1,25 +1,37 @@
 package net.donaldduckith.project;
 
-import com.google.gson.Gson;
+import com.google.gson.*;
+import com.google.gson.reflect.*;
 
-import java.util.Arrays;
-import java.util.List;
+import java.io.*;
+import java.lang.reflect.Type;
+import java.util.*;
+import java.net.*;
 
 public class Fields extends Main {
-    private int id;
-    private String name;
+        public static int getPostId() {
 
-    public Fields (int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Please enter a postId.");
+            int input = scanner.nextInt();
 
-    public void givenListOfFields_whenSerializing_thenCorrect() {
-        List<Fields> list = Arrays.asList(new Fields(1, "name1"), new Fields(2, "name2"));
+            try {
+                URL url = new URL("https://jsonplaceholder.typicode.com/comments");
+                URLConnection request = url.openConnection();
+                request.connect();
+                JsonParser jp = new JsonParser();
+                JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
 
-        Gson gson = new Gson();
-        String jsonString = list.toString();
-        String expectedString = "[{\"id\":1,\"name\":\"name1\"},{\"id\":2,\"name\":\"name2\"}]";
+                Gson gson = new Gson();
+                Type postListType = new TypeToken<ArrayList<Fields>>() {}.getType();
+                ArrayList<Fields> postArray = gson.fromJson(root, postListType);
 
-    }
+                for (Fields post : postArray) {
+                    System.out.println(post);
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+            return input;
+        }
 }
