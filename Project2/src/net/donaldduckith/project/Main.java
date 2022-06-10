@@ -24,19 +24,19 @@ public class Main {
             @Deprecated
             JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
             JsonArray rootObj = root.getAsJsonArray();
-            //System.out.println(rootObj.get());
+//            System.out.println(rootObj.get());
             System.out.println(sURL);
-            //System.out.println(rootObj);
-            //System.out.println(rootObj.get(1));
+//            System.out.println(rootObj);
+//            System.out.println(rootObj.get(1));
             System.out.println("Size of JSONArray = " + rootObj.size());
 
             for (int i = 0; i < rootObj.size(); ++i) {
                 JsonElement je = rootObj.get(i);
-                System.out.println(je);
+//                System.out.println(je);
 
                 for (String field : je.getAsJsonObject().keySet()) {
                     JsonObject jo = je.getAsJsonObject();
-                    System.out.println(field + "=" + jo.get(field));
+//                    System.out.println(field + "=" + jo.get(field));
                 }
             }
 
